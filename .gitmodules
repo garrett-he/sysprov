@@ -1,0 +1,3 @@
+[submodule "vendor/shlib"]
+	path = vendor/shlib
+	url = https://github.com/garrett-he/shlib.git
