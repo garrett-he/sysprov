@@ -21,3 +21,10 @@ module_zsh() {
 
     file::sed 's#plugins=(git)#plugins=(zsh-autosuggestions zsh-syntax-highlighting)#g' ~/.zshrc
 }
+
+module_python_packages() {
+    $SYSPROV_PYTHON_PIP install --upgrade pip
+    $SYSPROV_PYTHON_PIP install --user --break-system-packages copier pdm
+
+    utils::append_profiles 'export PATH="'$(python3 -m site --user-base)/bin':$PATH"'
+}
