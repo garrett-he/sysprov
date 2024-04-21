@@ -48,3 +48,15 @@ module_luaenv() {
     utils::append_profiles 'export PATH="$HOME/.luaenv/bin:$PATH"'
     utils::append_profiles 'eval "$(luaenv init -)"'
 }
+
+module_nvm() {
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+
+    utils::append_profiles
+    utils::append_profiles '# nvm'
+    utils::append_profiles 'export NVM_DIR="$HOME/.nvm"'
+    utils::append_profiles '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'
+    utils::append_profiles '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"'
+
+    source ~/.nvm/nvm.sh
+}
