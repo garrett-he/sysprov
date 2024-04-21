@@ -60,3 +60,13 @@ module_nvm() {
 
     source ~/.nvm/nvm.sh
 }
+
+module_phpenv() {
+    sysprov::git_clone https://github.com/phpenv/phpenv.git ~/.phpenv
+    sysprov::git_clone https://github.com/php-build/php-build.git ~/.phpenv/plugins/php-build
+
+    utils::append_profiles
+    utils::append_profiles '# phpenv'
+    utils::append_profiles 'export PATH="$HOME/.phpenv/bin:$PATH"'
+    utils::append_profiles 'eval "$(phpenv init -)"'
+}
