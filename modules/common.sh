@@ -102,3 +102,11 @@ module_proxy() {
     utils::append_profiles '# proxy'
     utils::append_profiles 'source ~/.set_proxy'
 }
+
+module_misc() {
+    utils::append_profiles
+    utils::append_profiles '# misc'
+    utils::append_profiles 'alias vi=vim'
+    utils::append_profiles 'export GPG_TTY=$(tty)'
+    utils::append_profiles 'export PATH="$HOME/.local/bin:$PATH"'
+}
