@@ -1,5 +1,5 @@
 module_dotfiles() {
-    sysprov::git_clone https://github.com/garrett-he/dotfiles.git ~/.dotfiles
+    sysprov::git_clone https://github.com/garrett-he/dotfiles.git ~/.dotfiles SYSPROV_MIRROR_DOTFILES_GIT_REMOTE
 
     cd ~/.dotfiles
     git submodule init
@@ -9,20 +9,37 @@ module_dotfiles() {
 
 module_zsh() {
     # Install ohmyzsh
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    if [[ -z "${SYSPROV_MIRROR_ZSH_OHMYZSH_GIT_REMOTE-}" ]]; then
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    else
+        git clone "$SYSPROV_MIRROR_ZSH_OHMYZSH_GIT_REMOTE" /tmp/ohmyzsh
+        cd /tmp/ohmyzsh/tools
+        REMOTE=$SYSPROV_MIRROR_ZSH_OHMYZSH_GIT_REMOTE sh install.sh --unattended
+
+        rm -rf /tmp/ohmyzsh
+    fi
 
     # Install powerlevel10k
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/.oh-my-zsh/custom/themes/powerlevel10k
+    if [[ -z "${SYSPROV_MIRROR_ZSH_POWERLEVEL10K_GIT_REMOTE-}" ]]; then
+        git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/.oh-my-zsh/custom/themes/powerlevel10k
+    else
+        git clone --depth=1 $SYSPROV_MIRROR_ZSH_POWERLEVEL10K_GIT_REMOTE $HOME/.oh-my-zsh/custom/themes/powerlevel10k
+    fi
+
     file::sed 's#ZSH_THEME="robbyrussell"#ZSH_THEME="powerlevel10k/powerlevel10k"#g' ~/.zshrc
 
     # Install zsh-autosuggestions and zsh-syntax-highlighting
-    sysprov::git_clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-    sysprov::git_clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+    sysprov::git_clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions SYSPROV_MIRROR_ZSH_ZSH_AUTOSUGGESTIONS_GIT_REMOTE
+    sysprov::git_clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting SYSPROV_MIRROR_ZSH_ZSH_SYNTAX_HIGHLIGHTING_GIT_REMOTE
 
     file::sed 's#plugins=(git)#plugins=(zsh-autosuggestions zsh-syntax-highlighting)#g' ~/.zshrc
 }
 
 module_python_packages() {
+    if [[ -n "${SYSPROV_MIRROR_PYPI_INDEX-}" ]]; then
+        $SYSPROV_PYTHON_PIP config set global.index-url $SYSPROV_MIRROR_PYPI_INDEX
+    fi
+
     $SYSPROV_PYTHON_PIP install --upgrade pip
     $SYSPROV_PYTHON_PIP install --user --break-system-packages copier pdm
 
@@ -30,7 +47,11 @@ module_python_packages() {
 }
 
 module_pyenv() {
-    curl -s -S -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash
+    if [[ -z "${SYSPROV_MIRROR_PYENV_GIT_REMOTE-}" ]]; then
+        curl -s -S -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash
+    else
+        git clone $SYSPROV_MIRROR_PYENV_GIT_REMOTE ~/.pyenv
+    fi
 
     utils::append_profiles
     utils::append_profiles '# pyenv'
@@ -40,8 +61,8 @@ module_pyenv() {
 }
 
 module_luaenv() {
-    sysprov::git_clone https://github.com/cehoffman/luaenv.git ~/.luaenv
-    sysprov::git_clone https://github.com/cehoffman/lua-build.git ~/.luaenv/plugins/lua-build
+    sysprov::git_clone https://github.com/cehoffman/luaenv.git ~/.luaenv SYSPROV_MIRROR_LUAENV_GIT_REMOTE
+    sysprov::git_clone https://github.com/cehoffman/lua-build.git ~/.luaenv/plugins/lua-build SYSPROV_MIRROR_LUA_BUILD_GIT_REMOTE
 
     utils::append_profiles
     utils::append_profiles '# luaenv'
@@ -50,7 +71,14 @@ module_luaenv() {
 }
 
 module_nvm() {
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+    if [[ -z "${SYSPROV_MIRROR_NVM_GIT_REMOTE-}" ]]; then
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+    else
+        git clone $SYSPROV_MIRROR_NVM_GIT_REMOTE ~/.nvm
+        cd ~/.nvm
+        git checkout v0.39.4
+        source nvm.sh
+    fi
 
     utils::append_profiles
     utils::append_profiles '# nvm'
@@ -62,8 +90,8 @@ module_nvm() {
 }
 
 module_phpenv() {
-    sysprov::git_clone https://github.com/phpenv/phpenv.git ~/.phpenv
-    sysprov::git_clone https://github.com/php-build/php-build.git ~/.phpenv/plugins/php-build
+    sysprov::git_clone https://github.com/phpenv/phpenv.git ~/.phpenv SYSPROV_MIRROR_PHPENV_GIT_REMOTE
+    sysprov::git_clone https://github.com/php-build/php-build.git ~/.phpenv/plugins/php-build SYSPROV_MIRROR_PHP_BUILD_GIT_REMOTE
 
     utils::append_profiles
     utils::append_profiles '# phpenv'
@@ -72,7 +100,7 @@ module_phpenv() {
 }
 
 module_powerline-fonts() {
-    sysprov::git_clone https://github.com/powerline/fonts.git /tmp/powerline-fonts
+    sysprov::git_clone https://github.com/powerline/fonts.git /tmp/powerline-fonts SYSPROV_MIRROR_POWERLINE_FONTS_GIT_REMOTE
 
     cd /tmp/powerline-fonts
 

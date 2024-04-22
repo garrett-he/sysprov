@@ -25,8 +25,10 @@ sysprov_announce() {
 }
 
 sysprov_help() {
-    echo 'usage: install.sh'
+    echo 'usage: install.sh [-m MIRRORS]'
     echo 'A set of scripts for provisioning systems on POSIX operating systems.'
+    echo
+    echo '  -m MIRRORS        mirrors to use during installation'
 }
 
 sysprov_prepare() {
@@ -55,6 +57,19 @@ sysprov_prepare() {
         source "$module_dir/$ostype".sh
     fi
 
+    # Load mirrors
+    if [[ -n "${SYSPROV_MIRRORS-}" ]]; then
+        for mirror in $SYSPROV_MIRRORS; do
+            local mirror_dir="$SYSPROV_ROOT/mirrors/$mirror"
+
+            if [[ -d $mirror_dir ]]; then
+                for mirror_file in "$mirror_dir"/*; do
+                    source "$mirror_file"
+                done
+            fi
+        done
+    fi
+
     # Load configurations
     source "$SYSPROV_ROOT/config/$ostype.conf"
 }
@@ -78,9 +93,10 @@ sysprov_install() {
 }
 
 main() {
-    while getopts 'h:' opt; do
+    while getopts 'hm:' opt; do
         case $opt in
             h) sysprov_help && exit 0 ;;
+            m) SYSPROV_MIRRORS="$OPTARG" ;;
             *) ;;
         esac
     done
