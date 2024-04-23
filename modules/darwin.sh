@@ -38,3 +38,11 @@ module_darwin_homebrew_packages() {
     utils::append_profiles 'export PATH="'$SYSPROV_DARWIN_HOMEBREW_PREFIX'/opt/gnu-tar/libexec/gnubin:$PATH"'
     utils::append_profiles 'export PATH="'$SYSPROV_DARWIN_HOMEBREW_PREFIX'/opt/findutils/libexec/gnubin:$PATH"'
 }
+
+module_darwin_python() {
+    $SYSPROV_DARWIN_HOMEBREW_PREFIX/bin/brew install python
+
+    utils::append_profiles
+    utils::append_profiles '# darwin_python'
+    utils::append_profiles 'export PATH="'$SYSPROV_DARWIN_HOMEBREW_PREFIX'/opt/python/libexec/bin:$PATH"'
+}
