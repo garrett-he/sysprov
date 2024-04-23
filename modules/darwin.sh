@@ -54,3 +54,7 @@ module_darwin_lua() {
     utils::append_profiles '# darwin_lua'
     utils::append_profiles 'export PATH="$HOME/.luarocks/bin:$PATH"'
 }
+
+module_darwin_php() {
+    $SYSPROV_DARWIN_HOMEBREW_PREFIX/bin/brew install php
+}
