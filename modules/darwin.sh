@@ -27,3 +27,14 @@ module_darwin_homebrew() {
     utils::append_profiles "export HOMEBREW_CORE_GIT_REMOTE=$HOMEBREW_CORE_GIT_REMOTE"
     utils::append_profiles "export HOMEBREW_PIP_INDEX_URL=$HOMEBREW_PIP_INDEX_URL"
 }
+
+module_darwin_homebrew_packages() {
+    $SYSPROV_DARWIN_HOMEBREW_PREFIX/bin/brew install coreutils gnu-sed gnu-tar findutils jq wget
+
+    utils::append_profiles
+    utils::append_profiles '# darwin_homebrew_packages'
+    utils::append_profiles 'export PATH="'$SYSPROV_DARWIN_HOMEBREW_PREFIX'/opt/coreutils/libexec/gnubin:$PATH"'
+    utils::append_profiles 'export PATH="'$SYSPROV_DARWIN_HOMEBREW_PREFIX'/opt/gnu-sed/libexec/gnubin:$PATH"'
+    utils::append_profiles 'export PATH="'$SYSPROV_DARWIN_HOMEBREW_PREFIX'/opt/gnu-tar/libexec/gnubin:$PATH"'
+    utils::append_profiles 'export PATH="'$SYSPROV_DARWIN_HOMEBREW_PREFIX'/opt/findutils/libexec/gnubin:$PATH"'
+}
