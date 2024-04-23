@@ -46,3 +46,11 @@ module_darwin_python() {
     utils::append_profiles '# darwin_python'
     utils::append_profiles 'export PATH="'$SYSPROV_DARWIN_HOMEBREW_PREFIX'/opt/python/libexec/bin:$PATH"'
 }
+
+module_darwin_lua() {
+    $SYSPROV_DARWIN_HOMEBREW_PREFIX/bin/brew install lua luarocks
+
+    utils::append_profiles
+    utils::append_profiles '# darwin_lua'
+    utils::append_profiles 'export PATH="$HOME/.luarocks/bin:$PATH"'
+}
