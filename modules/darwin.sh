@@ -58,3 +58,11 @@ module_darwin_lua() {
 module_darwin_php() {
     $SYSPROV_DARWIN_HOMEBREW_PREFIX/bin/brew install php
 }
+
+module_darwin_preferences() {
+    defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+    defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+
+    defaults write com.apple.screencapture location ~/Pictures
+    killall SystemUIServer
+}
