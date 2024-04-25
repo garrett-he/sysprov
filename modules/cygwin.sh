@@ -22,3 +22,12 @@ module_cygwin_apt-cyg() {
 module_cygwin_apt-cyg_packages() {
     apt-cyg install gcc-core make cmake gdb libssl-devel libiconv-devel zlib-devel libffi-devel vim bash-completion dos2unix fdupes
 }
+
+module_cygwin_python() {
+    apt-cyg install python3 python3-devel python3-pip python3-cffi
+
+    ln -sf /usr/bin/python3.9.exe /usr/local/bin/python3
+    ln -sf /usr/bin/python3.9.exe /usr/local/bin/python
+    ln -sf /usr/bin/pip3.9 /usr/local/bin/pip3
+    ln -sf /usr/bin/pip3 /usr/local/bin/pip
+}
