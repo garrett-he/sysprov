@@ -1,0 +1,11 @@
+ThemeFile=flat-ui
+Transparency=12
+CursorType=block
+CursorBlinks=no
+FontHeight=15
+Locale=en_US
+Charset=UTF-8
+Columns=130
+Rows=40
+CopyOnSelect=no
+Font=Consolas
