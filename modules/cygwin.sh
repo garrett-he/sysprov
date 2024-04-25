@@ -18,3 +18,7 @@ module_cygwin_apt-cyg() {
     apt-cyg cache /var/cache/cygwin
     apt-cyg mirror "$SYSPROV_MIRROR_CYGWIN"
 }
+
+module_cygwin_apt-cyg_packages() {
+    apt-cyg install gcc-core make cmake gdb libssl-devel libiconv-devel zlib-devel libffi-devel vim bash-completion dos2unix fdupes
+}
