@@ -56,3 +56,7 @@ module_cygwin_lua() {
     utils::append_profiles '# cygwin_lua'
     utils::append_profiles 'export PATH="$HOME/.luarocks/bin:$PATH"'
 }
+
+module_cygwin_php() {
+       apt-cyg install php php-{ctype,curl,devel,fileinfo,gd,gettext,iconv,json,mbstring,pdo_mysql,pdo_sqlite,phar,simplexml,tokenizer,xmlreader,xmlwriter}
+}
