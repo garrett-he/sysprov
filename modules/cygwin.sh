@@ -31,3 +31,28 @@ module_cygwin_python() {
     ln -sf /usr/bin/pip3.9 /usr/local/bin/pip3
     ln -sf /usr/bin/pip3 /usr/local/bin/pip
 }
+
+module_cygwin_lua() {
+    apt-cyg install lua liblua-devel liblua5.3 unzip
+
+    # luarocks
+    ln -sf /usr/lib/liblua5.3.dll.a /usr/lib/liblua.a
+    ln -sf /usr/include/lua5.3 /usr/include/lua
+
+    curl https://luarocks.github.io/luarocks/releases/luarocks-3.9.2.tar.gz -o /tmp/luarocks-3.9.2.tar.gz
+
+    cd /tmp
+    tar xf luarocks-3.9.2.tar.gz
+    cd luarocks-3.9.2
+
+    ./configure --with-lua-include=/usr/include/lua5.3
+    make
+    make install
+
+    cd /tmp
+    rm -rf luarocks-3.9.2
+
+    utils::append_profiles
+    utils::append_profiles '# cygwin_lua'
+    utils::append_profiles 'export PATH="$HOME/.luarocks/bin:$PATH"'
+}
