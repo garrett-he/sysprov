@@ -13,3 +13,7 @@ module_linux_lua() {
     utils::append_profiles '# linux_lua'
     utils::append_profiles 'export PATH="$HOME/.luarocks/bin:$PATH"'
 }
+
+module_linux_php() {
+    sudo pacman -S --noconfirm php composer
+}
