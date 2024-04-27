@@ -17,3 +17,10 @@ module_linux_lua() {
 module_linux_php() {
     sudo pacman -S --noconfirm php composer
 }
+
+module_linux_clash() {
+    sudo pacman -S --noconfirm clash
+
+    systemctl enable --user clash
+    systemctl start --user clash
+}
