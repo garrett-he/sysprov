@@ -1,0 +1,4 @@
+SYSPROV_MIRROR_HOMEBREW_API_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles/api
+SYSPROV_MIRROR_HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
+SYSPROV_MIRROR_HOMEBREW_BREW_GIT_REMOTE=https://mirrors.ustc.edu.cn/brew.git
+SYSPROV_MIRROR_HOMEBREW_CORE_GIT_REMOTE=https://mirrors.ustc.edu.cn/homebrew-core.git

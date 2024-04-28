@@ -1,0 +1,2 @@
+SYSPROV_MIRROR_LUAENV_GIT_REMOTE=https://gitee.com/garrett-he/luaenv.git
+SYSPROV_MIRROR_LUA_BUILD_GIT_REMOTE=https://gitee.com/garrett-he/lua-build.git

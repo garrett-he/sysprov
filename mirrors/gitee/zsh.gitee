@@ -1,0 +1,4 @@
+SYSPROV_MIRROR_ZSH_OHMYZSH_GIT_REMOTE=https://gitee.com/garrett-he/ohmyzsh.git
+SYSPROV_MIRROR_ZSH_POWERLEVEL10K_GIT_REMOTE=https://gitee.com/garrett-he/powerlevel10k.git
+SYSPROV_MIRROR_ZSH_ZSH_AUTOSUGGESTIONS_GIT_REMOTE=https://gitee.com/garrett-he/zsh-autosuggestions.git
+SYSPROV_MIRROR_ZSH_ZSH_SYNTAX_HIGHLIGHTING_GIT_REMOTE=https://gitee.com/garrett-he/zsh-syntax-highlighting.git

@@ -1,0 +1,2 @@
+SYSPROV_MIRROR_PHPENV_GIT_REMOTE=https://gitee.com/garrett-he/phpenv.git
+SYSPROV_MIRROR_PHP_BUILD_GIT_REMOTE=https://gitee.com/garrett-he/php-build.git

@@ -1,0 +1,5 @@
+SYSPROV_MIRROR_HOMEBREW_INSTALL_GIT_REMOTE=https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/install.git
+SYSPROV_MIRROR_HOMEBREW_API_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api
+SYSPROV_MIRROR_HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
+SYSPROV_MIRROR_HOMEBREW_BREW_GIT_REMOTE=https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git
+SYSPROV_MIRROR_HOMEBREW_CORE_GIT_REMOTE=https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git
